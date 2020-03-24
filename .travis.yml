@@ -22,5 +22,3 @@ matrix:
 before_script:
   - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
   - ./flutter/bin/flutter doctor
-script:
-  - ./flutter/bin/flutter test

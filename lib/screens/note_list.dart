@@ -60,12 +60,18 @@ class NoteListState extends State<NoteList> {
                 style: titleStyle
               ),
               subtitle: Text(this.noteList[position].date),
-              trailing: GestureDetector ( // Gesture Detector bhai baap hai.
-                child: Icon(Icons.delete_sweep, color: Colors.red, size: 37,),
-                onTap: () {
+              trailing: IconButton(
+                icon: Icon(Icons.delete_sweep, color: Colors.red, size: 37,),
+                onPressed: (){
                   _delete(context, noteList[position]);
                 },
               ),
+              // trailing: GestureDetector ( // Gesture Detector bhai baap hai.
+              //   child: Icon(Icons.delete_sweep, color: Colors.red, size: 37,),
+              //   onTap: () {
+              //     _delete(context, noteList[position]);
+              //   },
+              // ),
               onTap: () {
                 navigateToDetail(this.noteList[position], "Edit Note");
               },

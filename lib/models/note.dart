@@ -7,7 +7,8 @@ class Note {
 
   Note(this._title, this._date, this._priority, [this._description]);
   // make description optional
-  Note.withId(this._id, this._title, this._date, this._priority, [this._description]);
+  Note.withId(this._id, this._title, this._date, this._priority,
+      [this._description]);
 
   int get id => _id;
   String get title => _title;
@@ -28,7 +29,8 @@ class Note {
   }
 
   set priority(int newPriority) {
-    if (newPriority == 1 || newPriority == 2) { // way to validate inside models.
+    if (newPriority == 1 || newPriority == 2) {
+      // way to validate inside models.
       this._priority = newPriority;
     }
   }

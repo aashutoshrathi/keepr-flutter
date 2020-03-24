@@ -37,6 +37,8 @@ class NoteDetailState extends State<NoteDetail> {
       titleContr.text = note.title;
       descContr.text = note.description;
 
+      FocusNode descriptionNode = FocusNode();
+
       return WillPopScope (
         // this thing WillPopScope Checks what to do if user press back button from navigation bar.
         onWillPop: () {
@@ -85,7 +87,11 @@ class NoteDetailState extends State<NoteDetail> {
               Padding (
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: TextFormField(
+                  autofocus: true,
                   controller: titleContr,
+                  onEditingComplete: (){
+                    FocusScope.of(context).requestFocus(descriptionNode);
+                  },
                   style: textStyle,
                   validator: (String value) {
                     if (value.isEmpty) {
@@ -105,13 +111,14 @@ class NoteDetailState extends State<NoteDetail> {
 
               Padding (
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                child: TextField(
+                child: TextFormField(
+                  focusNode: descriptionNode,
                   controller: descContr,
                   style: textStyle,
-                  onChanged: (value) {
-                    debugPrint('Something in Description Field');
-                    note.description = descContr.text;
-                  },
+                  // onChanged: (value) {
+                  //   debugPrint('Something in Description Field');
+                  //   note.description = descContr.text;
+                  // },
                   decoration: InputDecoration(
                     labelText: 'Description',
                     hintText: 'Describe your task',
@@ -120,6 +127,15 @@ class NoteDetailState extends State<NoteDetail> {
                       borderRadius: BorderRadius.circular(5.0)
                     )
                   ),
+                  onFieldSubmitted: (_){
+                    setState(() {
+                            if (_formKey.currentState.validate()) {
+                              note.title = titleContr.text;
+                              note.description = descContr.text;
+                              _save();
+                            }
+                          });
+                  },
                 )
               ),
               
